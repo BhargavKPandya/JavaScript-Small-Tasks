@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        body{
+            background-color: lightslategray;
+        }
+        section{
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0px 0px 2px 2px rgba(0, 0, 255, .2);
+        }
+        .container{
+            width: 390px;
+            padding: 5px;
+        }
+        h1, h3{
+            text-align: center;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .bill, .tip-slider{
+            margin: 10px;
+            width: 90%;
+            align-items: center;
+        }
+        input{
+            width: 70%;
+        }
+        .range-slider-input{
+            border-radius: 5px;
+    background: #d7dcdf;
+    cursor: pointer;
+    transition: #2c3e50 .15s ease-in-out;
+    -webkit-appearance: none;
+    outline: none;
+  padding: 0;
+  margin: 0;
+  width: calc(100% - 73px);
+  height: 10px;       
+   
+  }
+ ::-webkit-slider-thumb:hover {
+      background: #2c3e50;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+    }
+
+  ::-webkit-slider-thumb:active {
+    background: #2c3e50;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+  }
+  ::-webkit-slider-thumb {
+    background: #2c3e50;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+  }
+        
+
+    </style>
+</head>
+<body>
+<section>
+    <div class="container">
+        <h1>Tip Calculator</h1>
+        <div class="bill">
+            <label>$</label>
+            <input type="number" id="bill-amount">
+        </div>
+        <div class="tip-slider">
+            <div>
+                <label for="tip-percentage">Tip:</label>
+                <input type="range" id="tip-percentage" name="tip-percentage" 
+                min="0" max="100" value="0" class="range-slider-input">
+                <span id="tip-value"></span>
+            </div>
+        </div>
+        <hr/>
+        <div>
+            <h3>Result</h3>
+            <div>
+                <span>Tip amount: </span> |
+                <span id="tip-amount"></span>
+            </div>
+            <div>
+                <span>Total Bill with Tip: </span> |
+                <span id="total-amount"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script>
+        let slider = document.getElementById('tip-percentage');
+        let tipValue = document.getElementById('tip-value');
+        let tipAmount = document.getElementById('tip-amount');
+        let billAmount = document.getElementById('bill-amount');
+        let finalAmount = document.getElementById('total-amount');
+
+        slider.onchange = ()=>{
+            tipValue.innerText = slider.value + '%';
+            tipAmount.innerText = slider.value + '%';
+            if(billAmount.value !== ''){
+            finalAmount.innerText = parseInt(billAmount.value) + parseInt((billAmount.value * slider.value)/100);
+            } else {
+                finalAmount.style.color = 'red';
+                finalAmount.innerText = 'Please enter Bill amount.';
+            }
+        }
+    </script>
+</body>
+</html>

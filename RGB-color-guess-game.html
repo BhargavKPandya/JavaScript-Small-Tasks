@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB - Color Guess Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            justify-content: center;
+        }
+
+        /* #colorValue{
+            background-color: #2C8E99;
+        }*/
+
+        .main-header {
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .action-section {
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .container1 {
+            display: flex;
+            text-align: center;
+            flex-direction: row;
+            margin: auto;
+        }
+
+        .container2 {
+            display: flex;
+            text-align: center;
+            flex-direction: row;
+            margin: auto;
+        }
+
+        .color-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            margin: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-header">
+        <p id="key1">The Great</p>
+        <h3 id="colorValue"></h3>
+        <p id="key3">Guessing Game</p>
+    </div>
+    <div class="action-section">
+        <button class="color-switcher" onclick="init()">New Colors</button>
+        <h5 id="result"></h5>
+    </div>
+    <div class="container1">
+        <div class="color-box" id="box1">
+        </div>
+        <div class="color-box" id="box2">
+        </div>
+        <div class="color-box" id="box3">
+        </div>
+    </div>
+    <div class="container2">
+        <div class="color-box" id="box4">
+        </div>
+        <div class="color-box" id="box5">
+        </div>
+        <div class="color-box" id="box6">
+        </div>
+    </div>
+
+    <script>
+
+        const resultColor = document.getElementById('colorValue');
+        const box = document.querySelectorAll('.color-box');
+
+        let colortest = [];
+        let randomBox;
+        window.onload = init();
+
+        function init() {
+            colortest = randomColorGenerator();
+            resultColor.textContent = chooseColor();
+        }
+
+        function random() {
+            let red = Math.floor(Math.random() * 256);
+            let green = Math.floor(Math.random() * 256);
+            let blue = Math.floor(Math.random() * 256);
+            return `rgb(${red}, ${green}, ${blue})`;
+        }
+
+        function randomColorGenerator() {
+            let arr = [];
+            for (let i = 0; i < box.length; i++) {
+                arr.push(random());
+                box[i].style.backgroundColor = arr[i];
+                box[i].addEventListener("click", function () {
+                    if (box[i].style.backgroundColor === resultColor.textContent) {
+                        document.getElementById('result').innerText = 'Your guess is correct.';
+                        changeColors(resultColor.textContent);
+                        resultColor.style.backgroundColor = resultColor.textContent;
+                        //box[i].style.backgroundColor = resultColor.innerText.toString();
+                        console.log('true', box[i].style.backgroundColor, resultColor.textContent);
+                    }
+                    else {
+                        //resultColor.style.backgroundColor = '#9E9E9E';
+                        this.style.backgroundColor = 'white';
+                        document.getElementById('result').innerText = 'Try Again....';
+                        console.log('false', box[i].style.backgroundColor, resultColor.textContent);
+                        console.log('value--', resultColor.innerText.toString());
+                    }
+                });
+            }
+            console.log(arr);
+            return arr;
+        }
+
+        function chooseColor() {
+            randomBox = Math.floor(Math.random() * colortest.length);
+            console.log(colortest[randomBox]);
+            return colortest[randomBox];
+        }
+
+        function changeColors(color) {
+            for (var i = 0; i < 6; i++) {
+                box[i].style.backgroundColor = color;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

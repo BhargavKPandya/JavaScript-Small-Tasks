@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        #clock{
+            text-align: center;
+            font-size: 3em;
+            color: blueviolet;
+
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h3 id="clock"></h3>
+</div>
+
+<script>
+    function currentTimeFn(){
+        let clock = document.getElementById('clock');
+        let date = new Date();
+        let hour = date.getHours();
+        let min = date.getMinutes();
+        let sec = date.getSeconds();
+        hour = updateTime(hour);
+        min = updateTime(min);
+        sec = updateTime(sec);
+        let ampm = hour >= 12 ? 'PM' : 'AM';
+        clock.innerText = hour + " : " + min + " : " + sec + " " + ampm;
+        let currentTime = setTimeout(() => currentTimeFn(), 1000);
+
+    function updateTime(n){
+        if(n < 10){
+            return "0" + n;
+        }
+        else{
+            return n;
+        }
+    }
+    }
+    
+     currentTimeFn();
+</script>
+</body>
+</html>

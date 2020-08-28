@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Stop Watch</title>
+    <style>
+        body{
+            background-color: darkgoldenrod;
+            color: white;
+        }
+        h1,h2{
+            text-transform: uppercase;
+        }
+        p#counter{
+            font-size: 2em;
+        }
+        button{
+            display: inline-block;
+            align-items: center;
+            margin: auto;
+            background-color: darkgoldenrod;
+            padding: 1em 2em;
+            border: 1px solid white;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <h1>Stopwatch</h1>
+    <h2>Vanilla Javascript Stopwatch</h2>
+    <p id="counter"><span id="min"></span> : <span id="sec"></span></p>
+    <div>
+        <button id="start-btn">Start</button>
+        <button id="stop-btn">Stop</button>
+        <button id="reset-btn">Reset</button>
+    </div>
+</div>
+
+    <script>
+        window.onload = () =>{
+            let hour = 0;
+            let minute = 0;
+            let seconds = 0;
+            let totalSeconds = 0;
+            let intervalId = null;
+      
+            function startTimer(){
+                ++totalSeconds;
+                hour = Math.floor(totalSeconds /3600);
+                minute = Math.floor((totalSeconds - hour*3600)/60);
+                seconds = totalSeconds - (hour*3600 + minute*60);
+                document.getElementById("min").innerHTML =minute;
+                document.getElementById("sec").innerHTML =seconds;
+            }
+
+            document.getElementById('start-btn').addEventListener('click', () => {
+                 intervalId = setInterval(startTimer, 1000);
+            })
+            document.getElementById('stop-btn').addEventListener('click', () => {
+                if (intervalId)
+                clearInterval(intervalId);
+            });
+            document.getElementById('reset-btn').addEventListener('click', () => {
+                 totalSeconds = 0;
+                  
+                 document.getElementById("min").innerHTML = '00';
+                 document.getElementById("sec").innerHTML = '00';
+             });
+        }
+
+    </script>
+</body>
+</html>
